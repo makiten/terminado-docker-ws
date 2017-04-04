@@ -1,11 +1,22 @@
+import configparser
 import tornado.web
 from tornado.ioloop import IOLoop
 from terminado import TermSocket, SingleTermManager
 
+config = config.ConfigParser()
+config.read('ws.cfg')
+domain_re = config['domain']['pattern']
+
+
+class JogralDomainTermSocket(TermSocket):
+    def check_origin(self, origin):
+        return bool(re.match(r'' + domain_re, origin))
+
+
 if __name__ == '__main__':
     term_manager = SingleTermManager(shell_command=['bash'])
     handlers = [
-        (r"/ws", TermSocket, {'term_manager': term_manager}),
+        (r"/ws", JogralDomainTermSocket, {'term_manager': term_manager}),
     ]
     app = tornado.web.Application(handlers)
     app.listen(8000)
