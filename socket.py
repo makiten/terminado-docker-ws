@@ -8,7 +8,7 @@ if __name__ == '__main__':
         (r"/ws", TermSocket, {'term_manager': term_manager}),
     ]
     app = tornado.web.Application(handlers)
-    app.listen(3000)
+    app.listen(80)
     try:
         IOLoop.current().start()
     except KeyboardInterrupt:
