@@ -1,9 +1,9 @@
-import configparser
+import configparser as cp
 import tornado.web
 from tornado.ioloop import IOLoop
 from terminado import TermSocket, SingleTermManager
 
-config = config.ConfigParser()
+config = cp.ConfigParser()
 config.read('ws.cfg')
 domain_re = config['domain']['pattern']
 
